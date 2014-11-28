@@ -1,6 +1,6 @@
 <?php
 
-namespace StreetTeam\Classes\Api\Fandist;
+namespace FandistApiWrapper\Src;
 
 class Connector {
 

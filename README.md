@@ -11,54 +11,50 @@ Calls available
 Usage/Implementation
 --------------------
 
+Instantiate
 ```
-<?php
+// Your/Application/Example/ConnectToFandist.php
+require_once 'Src/Connector.php';
 
-require_once 'Fandist.Api.Wrapper.php';
+use FandistApiWrapper\Src\Connector;
 
-use StreetTeam\Classes\Api\Fandist\Connector;
+// Set the api key ad secret
+$apiKey = 'xxx';
+$apiSecret = 'xxx';
 
+// Instantiate new fandist connector object
+$connector = Connector::getInstance($apiKey, $apiSecret);
+```
 
-class FandistConnectionHandler {
+Login call
+```
+// Your/Application/Example/ConnectToFandist.php
 
-	// Set apikey and secret
-	const API_KEY = 'xxxxxxxx';
-	const API_SECRET = 'xxxxxxxx';
-	
-	private function getConnector()
-	{
-		try {
-			// Get fandist connector object
-			return Connector::getInstance(self::API_KEY, self::API_SECRET);
-		}
-		catch(\Exception $e) {
-			// Gracefully fail here
-			echo $e->getMessage();
-		}
-	}
+// Instantiate new fandist connector object
+$connector = ...
 
-	/**
-	 * Login to fandist with an email
-	 */
-	public function login() 
-	{
-		// Get the fandist connector
-		$fandist = $this->getConnector();
-		
-		// login to fandist with an email
-		$fandist->login($email);
-	}
-	
-	/**
-	 * Log the user out of fandist
-	 */
-	public function logout()
-	{
-		// Get the fandist connector
-		$fandist = $this->getConnector();
-		
-		// login to fandist with an email
-		$fandist->logout();
-	}
-}
+// Log user in with email abc@example.com
+$connector->login('abc@example.com');
+```
+
+Logout call
+```
+// Your/Application/Example/ConnectToFandist.php
+
+// Instantiate new fandist connector object
+$connector = ...
+
+// Log user out, assuming that the user is already logged in
+$connector->logout();
+```
+
+Status call
+```
+// Your/Application/Example/ConnectToFandist.php
+
+// Instantiate new fandist connector object
+$connector = ...
+
+// Get the status from fandist connect of the current user
+$connector->status();
 ```
