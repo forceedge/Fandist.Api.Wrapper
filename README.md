@@ -37,7 +37,7 @@ require_once 'Src/Connector.php';
 
 use FandistApiWrapper\Src\Connector;
 
-// Set the api key ad secret
+// Set the api key and secret
 $apiKey = 'xxx';
 $apiSecret = 'xxx';
 
