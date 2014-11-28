@@ -12,7 +12,7 @@ class Connector {
 
     private $key, $secret, $token;
    	private static $fandist;
-   	
+
     /**
      *
      * @param type $key
@@ -24,24 +24,24 @@ class Connector {
         $this->key = $key;
         $this->secret = $secret;
     }
-   	
-   	// --------------------------- Public methods --------------------------- //
-    
+
+    // --------------------------- Public methods --------------------------- //
+
     public static function getInstance($apiKey, $apiSecret)
 	{
 		// If already instantiated return
 		if(self::$fandist)
 			return self::$fandist;
-	
+
 		// New Object for this class
 		self::$fandist = new self($apiKey, $apiSecret);
-		
+
 		// Fetch token for following calls
 		self::$fandist->fetchToken();
-		
+
 		return self::$fandist;
 	}
-	
+
     /**
      *
      * @param type $email
@@ -57,7 +57,7 @@ class Connector {
 
 		// Parse url params
 		$parsedUrl = $this->parseParams(self::LOGIN_URL);
-		
+
 		// Set url-encoded email in url
         $url = str_replace('{email}', urlencode($email), $parsedUrl);
 
@@ -101,7 +101,7 @@ class Connector {
 		// Get the status of the fandist session, logged in/authenticated/not logged in
         return $this->curl($url);
     }
-    
+
     // --------------------------- End of Public methods --------------------------- //
 
     /**
@@ -112,18 +112,18 @@ class Connector {
     {
         // Place key and secret in the url
         $url = $this->parseParams(self::AUTH_URL);
-        
+
         // cURL to get a valid token
         $this->token = $this->curl(self::DOMAIN . $url);
-        
+
         if(! $this->hasValidToken())
         {
             throw new \Exception("Invalid token provided '{$this->token}'");
         }
-        
+
         return $this->token;
     }
- 
+
     /**
      *
      * @return \Fandist\Connector|boolean
@@ -137,7 +137,7 @@ class Connector {
 
         return false;
     }
-    
+
     private function redirect($uri)
     {
     	header('Location: ' . self::DOMAIN . $uri);
@@ -171,7 +171,7 @@ class Connector {
      * @return type
      */
     private function curl($url)
-    {    
+    {
         $ch = curl_init();
         $this->configureCurl($url, $ch);
         $result = curl_exec($ch);
@@ -197,7 +197,7 @@ class Connector {
             CURLOPT_COOKIESESSION => true,
             CURLOPT_COOKIEJAR => 'COOIKIE_JAR'
         );
-        
+
         curl_setopt_array($ch, $defaults);
 
         return $this;
