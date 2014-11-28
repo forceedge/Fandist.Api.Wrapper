@@ -3,6 +3,11 @@ Fandist.Api.Wrapper
 
 Wrapper for fandist endpoints, allows you to quickly implement login and logout with fandist tech
 
+Calls available
+ - login ( String $email ) // Log into fandist, redirects based on app configuration
+ - logout () // logout of fandist, redirects based on app configuration
+ - status () // Gives a status - loggedin/authenticated
+
 Usage/Implementation
 --------------------
 
@@ -45,7 +50,7 @@ class FandistConnectionHandler {
 	}
 	
 	/**
-	 *
+	 * Log the user out of fandist
 	 */
 	public function logout()
 	{
