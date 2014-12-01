@@ -1,0 +1,12 @@
+{
+	"name": "digitalanimal/fandist.web",
+	"description": "Fandi.st Web Admin Panel",
+	"autoload": {
+		"psr-0": {
+	    	"": "Src/"
+	    }
+	},
+	"require": {
+	    "php": ">=5.4.10"
+    }
+}
