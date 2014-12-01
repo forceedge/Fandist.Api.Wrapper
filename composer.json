@@ -1,0 +1,12 @@
+{
+	"name": "digitalanimal/Fandist.Api.Wrapper",
+	"description": "Fandi.st PHP SDK to reduce the steps to share for a user logged into your website by using Fandist Connect",
+	"autoload": {
+		"psr-0": {
+	    	"": "Src/"
+	    }
+	},
+	"require": {
+	    "php": ">=5.4.10"
+    }
+}
