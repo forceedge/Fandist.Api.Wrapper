@@ -1,28 +1,45 @@
 <?php
 
-namespace StreetTeam\Classes\Api\Fandist;
+namespace FandistApiWrapper\Src;
 
 class Connector {
 
-    const DOMAIN = 'http://auth.fnd.st';
     const AUTH_URL = '/api/auth/{key}/{secret}';
     const LOGIN_URL = '/api/connector/login/{token}/{email}';
     const STATUS_URL = '/api/connector/status/{token}';
     const LOGOUT_URL = '/api/connector/logout/{token}';
 
-    private $key, $secret, $token;
-   	private static $fandist;
-
+    private $key, $secret, $token, $domain;
+    private static $fandist;
+    
     /**
      *
      * @param type $key
      * @param type $secret
      */
-    public function __construct($key, $secret)
+    public function __construct($key, $secret, $fandist_domain = 'http://auth.fandi.st')
     {
-    	// Set object init properties
+        // Set object init properties
         $this->key = $key;
         $this->secret = $secret;
+        $this->domain = $fandist_domain;
+    }
+    
+    // --------------------------- Public methods --------------------------- //
+    
+    public static function getInstance($apiKey, $apiSecret, $fandist_domain = 'http://auth.fandi.st')
+    {
+        // If already instantiated return
+        if(self::$fandist)
+            return self::$fandist;
+    
+        // New Object for this class
+        self::$fandist = new self($apiKey, $apiSecret, $fandist_domain);
+        
+        // Fetch token for following calls
+        self::$fandist->fetchToken();
+        
+        return self::$fandist;
     }
 
     // --------------------------- Public methods --------------------------- //
@@ -49,20 +66,20 @@ class Connector {
      */
     public function login($email)
     {
-    	// If token isnt defined throw an exception
+        // If token isnt defined throw an exception
         if(! $this->token)
         {
             throw new \Exception('Token is required to make the login call with fandist API, call fetchToken() first');
         }
 
-		// Parse url params
-		$parsedUrl = $this->parseParams(self::LOGIN_URL);
-
-		// Set url-encoded email in url
+        // Parse url params
+        $parsedUrl = $this->parseParams(self::LOGIN_URL);
+        
+        // Set url-encoded email in url
         $url = str_replace('{email}', urlencode($email), $parsedUrl);
 
         // Go to url with browser to login as the browser needs the cookie to bind the session
-		$this->redirect($url);
+        $this->redirect($url);
     }
 
     /**
@@ -76,11 +93,11 @@ class Connector {
             throw new \Exception('Token is required to make the logout call with fandist API, call fetchToken() first');
         }
 
-		// Set token in url
+        // Set token in url
         $url = $this->parseParams(self::LOGOUT_URL);
 
         // Destroy session by going to the url via browser
-		$this->redirect($url);
+        $this->redirect($url);
     }
 
     /**
@@ -95,10 +112,10 @@ class Connector {
             throw new \Exception('Token is required to make the login call with fandist API, call getToken() first');
         }
 
-		// Set token in url
+        // Set token in url
         $url = $this->parseParams(self::STATUS_URL);
 
-		// Get the status of the fandist session, logged in/authenticated/not logged in
+        // Get the status of the fandist session, logged in/authenticated/not logged in
         return $this->curl($url);
     }
 
@@ -114,8 +131,8 @@ class Connector {
         $url = $this->parseParams(self::AUTH_URL);
 
         // cURL to get a valid token
-        $this->token = $this->curl(self::DOMAIN . $url);
-
+        $this->token = $this->curl($this->domain . $url);
+        
         if(! $this->hasValidToken())
         {
             throw new \Exception("Invalid token provided '{$this->token}'");
@@ -140,8 +157,8 @@ class Connector {
 
     private function redirect($uri)
     {
-    	header('Location: ' . self::DOMAIN . $uri);
-    	exit();
+        header('Location: ' . $this->domain . $uri);
+        exit();
     }
 
     /**
