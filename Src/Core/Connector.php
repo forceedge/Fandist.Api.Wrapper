@@ -100,7 +100,7 @@ class Connector {
         // Place key and secret in the url
         $url = $this->domain . $this->parseParams(self::AUTH_URL);
 
-       	Connector::debugMessage('Fetching Token from: ' . $url);
+        Connector::debugMessage('Fetching Token from: ' . $url);
 
         // cURL to get a valid token
         $this->token = $this->curler->curl($url);
