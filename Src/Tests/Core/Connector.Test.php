@@ -30,7 +30,9 @@ class ConnectorTest extends ExtendedTestCase {
         $this->setTestObject('\\Src\\Core\\Connector', array(
             'apiKey' => self::APIKEY,
             'apiSecret' => self::APISECRET,
-            'curler' => $this->getMock('\Src\Core\Curler')
+            'curler' => $this->getMock('\Src\Core\Curler'),
+            'http://auth.fandi.st',
+            true
         ));
     }
 
