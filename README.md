@@ -113,11 +113,11 @@ This will return a JSON object in one of three formats, outlined below.
 ```
 
 ```bash
-{'success': true, 'status': false} // Application is authenticated to fandist but no user logged in
+{'success': true, 'status': false, 'app': {'name': 'example app', 'loginRedirectUrl': 'example.com', 'logoutRedirectUrl': 'example.com'}} // Application is authenticated to fandist but no user logged in
 ```
 
 ```bash
-{'success': true, 'status': 'loggedIn', 'email': 'user@example.com'} // Application is authenticated to fandist and 'user@example.com' is logged in
+{'success': true, 'status': {'user': {'email': 'user@example.com'}}, 'app': {'name': 'example app', 'loginRedirectUrl': 'example.com', 'logoutRedirectUrl': 'example.com'}} // Application is authenticated to fandist and 'user@example.com' is logged in
 ```
 
 ## Variables

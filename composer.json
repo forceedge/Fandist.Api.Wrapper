@@ -1,12 +1,16 @@
 {
-	"name": "digitalanimal/Fandist.Api.Wrapper",
-	"description": "Fandi.st PHP SDK to reduce the steps to share for a user logged into your website by using Fandist Connect",
-	"autoload": {
-		"psr-0": {
-	    	"": "Src/"
-	    }
-	},
-	"require": {
-	    "php": ">=5.4.10"
+    "name": "digitalanimal/Fandist.Api.Wrapper",
+    "description": "Fandi.st PHP SDK to reduce the steps to share for a user logged into your website by using Fandist Connect",
+    "autoload": {
+            "psr-0": {
+            "": ""
+        }
+    },
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*",
+        "genesis/phpunitassister": "0.4.*"
     }
 }
