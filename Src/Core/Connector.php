@@ -12,7 +12,7 @@ class Connector {
     const LOGOUT_URL = '/api/connector/logout/{token}';
     const DEBUG = false;
 
-    private $key, $secret, $token, $domain, $curler;
+    private $key, $secret, $token, $domain, $curler, $testing;
     private static $fandist;
 
     /**
@@ -20,13 +20,14 @@ class Connector {
      * @param type $key
      * @param type $secret
      */
-    public function __construct($key, $secret, $curler, $fandist_domain = 'http://auth.fandi.st')
+    public function __construct($key, $secret, $curler, $fandist_domain = 'http://auth.fandi.st', $testing = false)
     {
         // Set object init properties
         $this->key = $key;
         $this->secret = $secret;
         $this->curler = $curler;
         $this->domain = $fandist_domain;
+        $this->testing = $testing;
     }
 
     // --------------------------- Public methods --------------------------- //
@@ -135,7 +136,7 @@ class Connector {
     {
         header('Location: ' . $uri);
 
-        if(! PHPUNIT_TESTSUITE)
+        if(! $this->testing)
             exit();
     }
 
