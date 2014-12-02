@@ -12,7 +12,7 @@ class Connector {
     const LOGOUT_URL = '/api/connector/logout/{token}';
     const DEBUG = false;
 
-    private $key, $secret, $token, $domain;
+    private $key, $secret, $token, $domain, $curler;
     private static $fandist;
 
     /**
@@ -83,19 +83,19 @@ class Connector {
         }
 
         // Set token in url
-        $url = $this->parseParams(self::LOGOUT_URL);
+        $url = $this->domain . $this->parseParams(self::LOGOUT_URL);
 
         // Destroy session by going to the url via browser
         $this->redirect($url);
+
+        return $url;
     }
 
-    // --------------------------- End of Public methods --------------------------- //
-
     /**
-     *
-     * @return \Fandist\Connector
+     * 
+     * @throws \Exception
      */
-    private function fetchToken()
+    public function fetchToken()
     {
         // Place key and secret in the url
         $url = $this->domain . $this->parseParams(self::AUTH_URL);
@@ -115,9 +115,11 @@ class Connector {
         return $this->token;
     }
 
+    // --------------------------- End of Public methods --------------------------- //
+
     /**
      *
-     * @return \Fandist\Connector|boolean
+     * @return \Src\Core\Connector|boolean
      */
     private function hasValidToken()
     {
@@ -158,7 +160,7 @@ class Connector {
         );
     }
 
-    /*
+    /**
      * @codeCoverageIgnore
      */
     public static function debugMessage($message, $variable = null)

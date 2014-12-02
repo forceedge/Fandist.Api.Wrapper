@@ -18,6 +18,7 @@ class ConnectorTest extends ExtendedTestCase {
 
     const APIKEY = 'KEY';
     const APISECRET = 'SECRET';
+    const TOKEN = 'asdf9798asdf987as7df987s98d7faoisdfas08df08as90d8fas9df';
 
     /**
      * @covers ::__construct
@@ -80,7 +81,7 @@ class ConnectorTest extends ExtendedTestCase {
         // Token is required
         $this->setExpectedException('\Exception', 'fetchToken()');
 
-        $this->tm('login')->with('something@example.com');
+        $this->tm('logout')->with('something@example.com');
     }
 
     /**
@@ -92,7 +93,86 @@ class ConnectorTest extends ExtendedTestCase {
     {
         $this->setTestObjectProperty('token', 'fudged_token');
 
-        $this->tm('logout')->with('something@example.com')
+        $this->tm('logout')->with()
                 ->assert('true', 'http://auth.fandi.st/api/connector/logout/fudged_token');
+    }
+
+    /**
+     * @covers ::fetchToken
+     * @covers ::hasValidToken
+     */
+    public function test_fetchToken_invalidToken()
+    {
+        $this->setExpectedException('\Exception', 'Invalid token');
+
+        $url = 'http://auth.fandi.st/api/auth/KEY/SECRET';
+        $curler = $this->getMock('\Src\Core\Curler');
+        $this->setmo($curler)
+                ->mm('curl', [
+                    'with' => $url,
+                    'will' => $this->returnValue('{')
+                ]);
+
+        $this->setTestObjectProperty('curler', $curler);
+        $this->tm('fetchToken')->with();
+    }
+
+    /**
+     * @covers ::fetchToken
+     * @covers ::hasValidToken
+     */
+    public function test_fetchToken_invalidToken2()
+    {
+        $this->setExpectedException('\Exception', 'Invalid token');
+
+        $url = 'http://auth.fandi.st/api/auth/KEY/SECRET';
+        $curler = $this->getMock('\Src\Core\Curler');
+        $this->setmo($curler)
+                ->mm('curl', [
+                    'with' => $url,
+                    'will' => $this->returnValue('you are not authorised')
+                ]);
+
+        $this->setTestObjectProperty('curler', $curler);
+        $this->tm('fetchToken')->with();
+    }
+
+    /**
+     * @covers ::fetchToken
+     * @covers ::hasValidToken
+     */
+    public function test_fetchToken_invalidToken3()
+    {
+        $this->setExpectedException('\Exception', 'Invalid token');
+
+        $url = 'http://auth.fandi.st/api/auth/KEY/SECRET';
+        $curler = $this->getMock('\Src\Core\Curler');
+        $this->setmo($curler)
+                ->mm('curl', [
+                    'with' => $url,
+                    'will' => $this->returnValue('')
+                ]);
+
+        $this->setTestObjectProperty('curler', $curler);
+        $this->tm('fetchToken')->with();
+    }
+
+    /**
+     * @covers ::fetchToken
+     * @covers ::hasValidToken
+     */
+    public function test_fetchToken()
+    {
+        $url = 'http://auth.fandi.st/api/auth/KEY/SECRET';
+        $curler = $this->getMock('\Src\Core\Curler');
+        $this->setmo($curler)
+                ->mm('curl', [
+                    'with' => $url,
+                    'will' => $this->returnValue(self::TOKEN)
+                ]);
+
+        $this->setTestObjectProperty('curler', $curler);
+        $this->tm('fetchToken')->with()
+                ->assert('true', self::TOKEN);
     }
 }
