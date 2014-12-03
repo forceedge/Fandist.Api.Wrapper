@@ -31,7 +31,7 @@ class ConnectorTest extends ExtendedTestCase {
             'apiKey' => self::APIKEY,
             'apiSecret' => self::APISECRET,
             'curler' => $this->getMock('\Src\Core\Curler'),
-            'http://auth.fandi.st',
+            'auth.fandi.st',
             true
         ));
     }
@@ -62,6 +62,7 @@ class ConnectorTest extends ExtendedTestCase {
 
     /**
      * @covers ::login
+     * @covers ::getProperlyFormattedUrl
      * @covers ::parseParams
      * @covers ::redirect
      */
@@ -88,6 +89,7 @@ class ConnectorTest extends ExtendedTestCase {
 
     /**
      * @covers ::logout
+     * @covers ::getProperlyFormattedUrl
      * @covers ::parseParams
      * @covers ::redirect
      */

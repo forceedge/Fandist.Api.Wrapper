@@ -6,6 +6,7 @@ require_once (__DIR__ . '/Curler.php');
 
 class Connector {
 
+    const PROTOCOL = 'http';
     const AUTH_URL = '/api/auth/{key}/{secret}';
     const LOGIN_URL = '/api/connector/login/{token}/{email}';
     const STATUS_URL = '/api/connector/status/{token}';
@@ -20,7 +21,7 @@ class Connector {
      * @param type $key
      * @param type $secret
      */
-    public function __construct($key, $secret, $curler, $fandist_domain = 'http://auth.fandi.st', $testing = false)
+    public function __construct($key, $secret, $curler, $fandist_domain = 'auth.fandi.st', $testing = false)
     {
         // Set object init properties
         $this->key = $key;
@@ -32,7 +33,7 @@ class Connector {
 
     // --------------------------- Public methods --------------------------- //
 
-    public static function getInstance($apiKey, $apiSecret, $fandist_domain = 'http://auth.fandi.st')
+    public static function getInstance($apiKey, $apiSecret, $fandist_domain = 'auth.fandi.st')
     {
         // If already instantiated return
         if(self::$fandist)
@@ -61,10 +62,10 @@ class Connector {
         }
 
         // Parse url params
-        $parsedUrl = $this->parseParams(self::LOGIN_URL);
+        $parsedUrl = $this->getProperlyFormattedUrl(self::LOGIN_URL);
         
         // Set url-encoded email in url
-        $url = $this->domain . str_replace('{email}', urlencode($email), $parsedUrl);
+        $url = str_replace('{email}', urlencode($email), $parsedUrl);
 
         // Go to url with browser to login as the browser needs the cookie to bind the session
         $this->redirect($url);
@@ -84,7 +85,7 @@ class Connector {
         }
 
         // Set token in url
-        $url = $this->domain . $this->parseParams(self::LOGOUT_URL);
+        $url = $this->getProperlyFormattedUrl(self::LOGOUT_URL);
 
         // Destroy session by going to the url via browser
         $this->redirect($url);
@@ -99,7 +100,7 @@ class Connector {
     public function fetchToken()
     {
         // Place key and secret in the url
-        $url = $this->domain . $this->parseParams(self::AUTH_URL);
+        $url = $this->getProperlyFormattedUrl(self::AUTH_URL);
 
         Connector::debugMessage('Fetching Token from: ' . $url);
 
@@ -120,6 +121,18 @@ class Connector {
 
     /**
      *
+     * @param type $uri
+     * @return type
+     */
+    private function getProperlyFormattedUrl($uri)
+    {
+        $formattedUri = $this->parseParams($uri);
+
+        return self::PROTOCOL . '://' . $this->domain . $formattedUri;
+    }
+
+    /**
+     *
      * @return \Src\Core\Connector|boolean
      */
     private function hasValidToken()
@@ -132,9 +145,9 @@ class Connector {
         return false;
     }
 
-    private function redirect($uri)
+    private function redirect($url)
     {
-        header('Location: ' . $uri);
+        header('Location: ' . $url);
 
         if(! $this->testing)
             exit();
