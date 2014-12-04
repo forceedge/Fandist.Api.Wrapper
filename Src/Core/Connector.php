@@ -100,7 +100,7 @@ class Connector {
      * @throws \Exception
      * Sort of comes between private and public method
      */
-    public function fetchToken()
+    private function fetchToken()
     {
         // Place key and secret in the url
         $url = $this->getProperlyFormattedUrl(self::AUTH_URL);
