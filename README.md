@@ -26,8 +26,6 @@ You simply need to include [fandist.api.wrapper.php](https://github.com/digitala
 
 * `$instance->logout();` - logs the current user out of fandist and redirects back to your application, based on the application configuration.
 
-* `$instance->status();` - gives the current authorisation and logged in/out status of the application and current user.
-
 An example implementation follows. Note that you will need to replace the variables `$apiKey` and `$apiSecret` with those generated when you create a fandist application.
 
 ### 1. Instantiate the connector
@@ -67,17 +65,6 @@ $connector = ...
 $connector->logout();
 ```
 
-### 4. Status call
-```php
-// Your/Application/Example/ConnectToFandist.php
-
-// Instantiate new fandist connector object
-$connector = ...
-
-// Get the status from Fandist Connect of the current user
-$connector->status();
-```
-
 ## <a id="connectendpoints"></a>Raw API endpoints
 
 #### 1. Retrieve an application token
@@ -100,25 +87,6 @@ This works much like the sign-on call, but does not require an email address as 
 $ curl http://my.fandi.st/api/connector/logout/{application_token}
 ```
 This will result in the current user being signed out of fandist and then the browser will redirect to the URI defined in your application configuration.
-
-#### 4. Fandist Connect status
-Use this route to check the current status of Fandist Connect in your application.
- ```bash
-$ curl http://my.fandi.st/api/connector/status/{application_token}
-```
-This will return a JSON object in one of three formats, outlined below.
-
-```bash
-{'sucess': false, 'code' => 403, 'error' => 'not authorized'} // Application is not authenticated to fandist
-```
-
-```bash
-{'success': true, 'status': false, 'app': {'name': 'example app', 'loginRedirectUrl': 'example.com', 'logoutRedirectUrl': 'example.com'}} // Application is authenticated to fandist but no user logged in
-```
-
-```bash
-{'success': true, 'status': {'user': {'email': 'user@example.com'}}, 'app': {'name': 'example app', 'loginRedirectUrl': 'example.com', 'logoutRedirectUrl': 'example.com'}} // Application is authenticated to fandist and 'user@example.com' is logged in
-```
 
 ## Variables
 | Variable               | Definition | Example |
