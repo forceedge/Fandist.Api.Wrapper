@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "10794fac5942c3ce6db087abe4e0d576",
+    "hash": "38a46272fa284566d7d393186cf0d35c",
     "packages": [],
     "packages-dev": [
         {
@@ -63,16 +63,16 @@
         },
         {
             "name": "genesis/phpunitassister",
-            "version": "v0.4.4",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/wqureshi/phpunitassister.git",
-                "reference": "fd2010e9c58effa48b5c0c3a453b33ccef1d31b1"
+                "reference": "813fc1927589dfe3762879e42929a7feb8df63fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/wqureshi/phpunitassister/get/fd2010e9c58effa48b5c0c3a453b33ccef1d31b1.zip",
-                "reference": "fd2010e9c58effa48b5c0c3a453b33ccef1d31b1",
+                "url": "https://bitbucket.org/wqureshi/phpunitassister/get/813fc1927589dfe3762879e42929a7feb8df63fa.zip",
+                "reference": "813fc1927589dfe3762879e42929a7feb8df63fa",
                 "shasum": ""
             },
             "require": {
@@ -93,7 +93,7 @@
                 }
             ],
             "description": "Extends the phpunit WebTestCase class to provide easier mocking and assertions (chain mocking and chain assertions)",
-            "time": "2014-12-04 12:41:20"
+            "time": "2014-12-04 13:53:02"
         },
         {
             "name": "phpunit/php-code-coverage",

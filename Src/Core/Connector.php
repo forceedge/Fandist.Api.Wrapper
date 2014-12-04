@@ -98,6 +98,7 @@ class Connector {
     /**
      *
      * @throws \Exception
+     * Sort of comes between private and public method
      */
     private function fetchToken()
     {

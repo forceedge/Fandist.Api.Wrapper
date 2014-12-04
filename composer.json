@@ -11,6 +11,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": "4.3.*",
-        "genesis/phpunitassister": "0.4.*"
+        "genesis/phpunitassister": "0.5.*"
     }
 }
