@@ -93,11 +93,13 @@ class Connector {
         return $url;
     }
 
+    // --------------------------- End of Public methods --------------------------- //
+
     /**
-     * 
+     *
      * @throws \Exception
      */
-    public function fetchToken()
+    private function fetchToken()
     {
         // Place key and secret in the url
         $url = $this->getProperlyFormattedUrl(self::AUTH_URL);
@@ -116,8 +118,6 @@ class Connector {
 
         return $this->token;
     }
-
-    // --------------------------- End of Public methods --------------------------- //
 
     /**
      *
