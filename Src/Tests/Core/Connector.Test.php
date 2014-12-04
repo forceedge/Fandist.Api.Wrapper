@@ -118,8 +118,8 @@ class ConnectorTest extends ExtendedTestCase {
                 ]);
 
         $this->setTestObjectProperty('curler', $curler);
-        $this->setTestObjectMethodAccessible();
-        $this->tm('fetchToken')->with();
+        $this->setma()
+            ->tm('fetchToken')->with();
     }
 
     /**
@@ -139,8 +139,8 @@ class ConnectorTest extends ExtendedTestCase {
                 ]);
 
         $this->setTestObjectProperty('curler', $curler);
-        $this->setTestObjectMethodAccessible();
-        $this->tm('fetchToken')->with();
+        $this->setma()
+            ->tm('fetchToken')->with();
     }
 
     /**
@@ -160,8 +160,8 @@ class ConnectorTest extends ExtendedTestCase {
                 ]);
 
         $this->setTestObjectProperty('curler', $curler);
-        $this->setTestObjectMethodAccessible();
-        $this->tm('fetchToken')->with();
+        $this->setma()
+            ->tm('fetchToken')->with();
     }
 
     /**
@@ -179,8 +179,8 @@ class ConnectorTest extends ExtendedTestCase {
                 ]);
 
         $this->setTestObjectProperty('curler', $curler);
-        $this->setTestObjectMethodAccessible();
-        $this->tm('fetchToken')->with()
-                ->assert('true', self::TOKEN);
+        $this->setma()
+            ->tm('fetchToken')->with()
+            ->assert('true', self::TOKEN);
     }
 }
