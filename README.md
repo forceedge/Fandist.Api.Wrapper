@@ -20,7 +20,7 @@ The next step is to choose either the [PHP SDK](#phpsdk) implementation or to [c
 
 ## <a id="phpsdk"></a> PHP SDK
 
-You simply need to include [fandist.api.wrapper.php](https://github.com/digitalanimal/Fandist.Api.Wrapper/blob/master/fandist.api.wrapper.php) in your application. This class then needs instantiating and has three public methods available, `login`, `logout` and `status`.
+You simply need to include [fandist.api.wrapper.php](https://github.com/digitalanimal/Fandist.Api.Wrapper/blob/master/fandist.api.wrapper.php) in your application. This class then needs instantiating and has three public methods available, `login` and `logout`.
 
 * `$instance->login(String $email)` -  logs the user defined by `$email`  into fandist and redirects back to your application, based on the application configuration.
 
