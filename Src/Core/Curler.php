@@ -17,7 +17,7 @@ class Curler {
     	Connector::debugMessage('<br />Curling url: '. $url . '<br />');
 
         $ch = curl_init();
-        $this->configureCurl($url, $ch);
+        $this->configureCurl(urlencode($url), $ch);
         $result = curl_exec($ch);
 
         if( ! $result )
