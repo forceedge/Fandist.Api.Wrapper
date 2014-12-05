@@ -95,3 +95,36 @@ This will result in the current user being signed out of fandist and then the br
 | {app_secret}           | Authorisation code to prove the application is the application it claims to be. | `abc123...456DEF` |
 | {application\_token}   | A token used to identify the pre-authorised application so the key and secret do not have to be sent with every request to fandist. Tokens can be revoked upon request. | `abc123...456DEF` |
 | {user\_email\_address} | The email address of the user that should be signed in/out of fandist. | `user@example.com ` |
+
+## Api endpoints example
+
+For this example I am starting with a simple express application in node. This application has a signup, a login and a logout. The first step is to register your application with fandi.st. Once you have created a fandi.st account and your app has been registered be sure to take a copy of your **app_key** and **app_secret**.
+
+Once you have these you will need to install [request](https://github.com/request/request) from npm to handle the request object when logging in and out of fandist. In your terminal window type....
+
+```bash
+$ npm install request --save
+```
+
+This will add the latest version of request to your package.json file. 
+
+#### 1. Handle Login
+Once this has been installed you will need to find where in your application you handle the login.
+
+After you have authenticated the user on you end, *note: fandist does not authenticate your users and will login whoever you pass to us*, and add the [request](https://github.com/request/request) syntax to the file.
+
+Place this at the top of the file to require the [request](https://github.com/request/request) object
+```bash
+var request = require('request');
+```
+After your user authentification place the request function to login the user using the application token (valid for 60mins) and their email address and redirect to the returned *body*.
+
+```bash
+request('http://my.fandi.st/api/connector/login/{application_token}/{user_email_address}, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    res.redirect(body);
+  }
+})
+```
+
+Once complete you user will not only be logged into your system but to fandist as well.
