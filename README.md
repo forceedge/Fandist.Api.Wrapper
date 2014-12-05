@@ -100,8 +100,7 @@ This will result in the current user being signed out of fandist and then the br
 
 For this example I am starting with a simple express application in node. This application has a signup, a login and a logout. The first step is to register your application with fandi.st. Once you have created a fandi.st account and your app has been registered be sure to take a copy of your **app_key** and **app_secret**.
 
-Once you have these you will need to install [request](https://github.com/request/request) from npm to handle the request object when logging in and out of fandist. In your terminal window type....
-
+Once you have these you will need to install [request](https://github.com/request/request) from npm to handle the request object when logging in and out of fandist.
 ```bash
 $ npm install request --save
 ```
@@ -117,8 +116,8 @@ Place this at the top of the file to require the [request](https://github.com/re
 ```bash
 var request = require('request');
 ```
-After your user authentification place the request function to login the user using the application token (valid for 60mins) and their email address and redirect to the returned *body*.
 
+After your user authentification place the request function to login the user using the application token (valid for 60mins) and their email address and redirect to the returned *body*.
 ```bash
 request('http://my.fandi.st/api/connector/login/{application_token}/{user_email_address}', function (error, response, body) {
   if (!error && response.statusCode == 200) {
@@ -128,3 +127,20 @@ request('http://my.fandi.st/api/connector/login/{application_token}/{user_email_
 ```
 
 Once complete you user will not only be logged into your system but to fandist as well.
+
+#### 2. Handle Logout
+The logout process is similar to the login process, except it does not require the users email address. 
+
+The file you have placed your logout function place the [request](https://github.com/request/request) object at the top (if this is the same file as your login, please ignore this step).
+```bash
+var request = require('request');
+```
+
+Inside your user logout function place the request function to log the user out passing the application token and then redirect to the returned *body*.
+```bash
+request('http://my.fandi.st/api/connector/logout/{application_token}', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    res.redirect(body);
+  }
+})
+```
