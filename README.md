@@ -117,11 +117,17 @@ Place this at the top of the file to require the [request](https://github.com/re
 var request = require('request');
 ```
 
-After your user authentification place the request function to login the user using the application token (valid for 60mins) and their email address and redirect to the returned *body*.
+
+After your user authentification place the request function to curl fandist using the **app_key** and **app_secret** to retrieve current application token (these expire every 60 minutes) and use the returned value to redirect to the fandist login using the retrieved application token and the users email address from your system.
 ```bash
-request('http://my.fandi.st/api/connector/login/{application_token}/{user_email_address}', function (error, response, body) {
+request('http://my.fandi.st/api/auth/{app_key}/{app_secret}', function (error, response, body) {
   if (!error && response.statusCode == 200) {
-    res.redirect(body);
+    
+    // Create loginUrl using the returned body and the {user_email_address} from your user
+    var loginUrl = http://my.fandi.st/api/connector/login/' + body + '/' + {user_email_address}
+    
+    // Redirect to the loginUrl created above
+    res.redirect(loginUrl);
   }
 })
 ```
@@ -134,6 +140,10 @@ The logout process is similar to the login process, except it does not require t
 The file you have placed your logout function place the [request](https://github.com/request/request) object at the top (if this is the same file as your login, please ignore this step).
 ```bash
 var request = require('request');
+```
+
+```bash
+$ curl http://my.fandi.st/api/auth/{app_key}/{app_secret}
 ```
 
 Inside your user logout function place the request function to log the user out passing the application token and then redirect to the returned *body*.
