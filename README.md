@@ -124,7 +124,7 @@ request('http://my.fandi.st/api/auth/{app_key}/{app_secret}', function (error, r
   if (!error && response.statusCode == 200) {
     
     // Create loginUrl using the returned body and the {user_email_address} from your user
-    var loginUrl = http://my.fandi.st/api/connector/login/' + body + '/' + {user_email_address}
+    var loginUrl = 'http://my.fandi.st/api/connector/login/' + body + '/' + {user_email_address}
     
     // Redirect to the loginUrl created above
     res.redirect(loginUrl);
