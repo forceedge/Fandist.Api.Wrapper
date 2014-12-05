@@ -117,14 +117,13 @@ Place this at the top of the file to require the [request](https://github.com/re
 var request = require('request');
 ```
 
-
 After your user authentification place the request function to curl fandist using the **app_key** and **app_secret** to retrieve current application token (these expire every 60 minutes) and use the returned value to redirect to the fandist login using the retrieved application token and the users email address from your system.
 ```bash
-request('http://my.fandi.st/api/auth/{app_key}/{app_secret}', function (error, response, body) {
+request('http://my.fandi.st/api/auth/{app_key}/{app_secret}', function (error, response, token) {
   if (!error && response.statusCode == 200) {
     
-    // Create loginUrl using the returned body and the {user_email_address} from your user
-    var loginUrl = 'http://my.fandi.st/api/connector/login/' + body + '/' + {user_email_address}
+    // Create loginUrl using the returned token and the {user_email_address} from your user
+    var loginUrl = 'http://my.fandi.st/api/connector/login/' + token + '/' + {user_email_address}
     
     // Redirect to the loginUrl created above
     res.redirect(loginUrl);
@@ -142,15 +141,16 @@ The file you have placed your logout function place the [request](https://github
 var request = require('request');
 ```
 
+Inside your user logout function place the request function to curl fandist using the **app_key** and **app_secret** to retrieve current application token (these expire every 60 minutes) and use the returned value to redirect to the fandist logout using the retrieved application token.
 ```bash
-$ curl http://my.fandi.st/api/auth/{app_key}/{app_secret}
-```
-
-Inside your user logout function place the request function to log the user out passing the application token and then redirect to the returned *body*.
-```bash
-request('http://my.fandi.st/api/connector/logout/{application_token}', function (error, response, body) {
+request('http://my.fandi.st/api/auth/{app_key}/{app_secret}', function (error, response, token) {
   if (!error && response.statusCode == 200) {
-    res.redirect(body);
+    
+    // Create loginUrl using the returned token and the {user_email_address} from your user
+    var logoutUrl = 'http://my.fandi.st/api/connector/logout/' + token
+    
+    // Redirect to the loginUrl created above
+    res.redirect(logoutUrl);
   }
 })
 ```
