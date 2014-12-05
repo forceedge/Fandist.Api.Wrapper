@@ -120,7 +120,7 @@ var request = require('request');
 After your user authentification place the request function to login the user using the application token (valid for 60mins) and their email address and redirect to the returned *body*.
 
 ```bash
-request('http://my.fandi.st/api/connector/login/{application_token}/{user_email_address}, function (error, response, body) {
+request('http://my.fandi.st/api/connector/login/{application_token}/{user_email_address}', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     res.redirect(body);
   }
