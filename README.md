@@ -20,7 +20,9 @@ The next step is to choose either the [PHP SDK](#phpsdk) implementation or to [c
 
 ## <a id="phpsdk"></a> PHP SDK
 
-You simply need to include [Connector.php](https://github.com/digitalanimal/Fandist.Api.Wrapper/blob/master/Src/Core/Connector.php) in your application. This class then needs instantiating and has two public methods available, `login` and `logout`.
+You simply need to include [Connector.php](https://github.com/digitalanimal/Fandist.Api.Wrapper/blob/master/Src/Core/Connector.php) in your application. This class then needs instantiating and has three useful public methods available, `getInstance`, `login` and `logout`.
+
+* `$instance = Connector::getInstance($apiKey, $apiSecret);` - Returns a fandist connector instance that allows you to interact with the fandist API
 
 * `$instance->login(String $email)` -  logs the user defined by `$email`  into fandist and redirects back to your application, based on the application configuration.
 
