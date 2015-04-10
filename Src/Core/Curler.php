@@ -22,7 +22,7 @@ class Curler {
 
         if( ! $result )
         {
-            trigger_error(curl_error($ch));
+            throw new \Exception(curl_error($ch));
         }
 
         Connector::debugMessage('Curl raw result: '. $result . '<br />');
