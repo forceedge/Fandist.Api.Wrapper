@@ -6,3 +6,5 @@ build/*
 
 # ignore mac folder settings file
 .DS_Store
+
+nbproject

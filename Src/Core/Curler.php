@@ -84,7 +84,9 @@ class Curler {
             CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
             CURLOPT_HTTPHEADER => array('Accept: application/json'),
             CURLOPT_COOKIESESSION => true,
-            CURLOPT_COOKIEJAR => 'COOIKIE_JAR'
+            CURLOPT_COOKIEJAR => 'COOIKIE_JAR',
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0
         );
 
         curl_setopt_array($ch, $defaults);
